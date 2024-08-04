@@ -1,6 +1,6 @@
 
-export class EditAccountComponent  {
+ export class EditAccountComponent  {
   
   
 
-}
+ }
