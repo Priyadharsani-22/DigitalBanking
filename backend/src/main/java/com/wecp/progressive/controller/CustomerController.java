@@ -1,80 +1,8 @@
-// // package com.wecp.progressive.controller;
-
-
-// // import com.wecp.progressive.entity.Customers;
-// // import com.wecp.progressive.entity.Transactions;
-// // import org.springframework.http.ResponseEntity;
-// // import org.springframework.web.bind.annotation.*;
-
-// // import java.util.List;
-
-// // public class CustomerController {
-
-// //     public ResponseEntity<List<Customers>> getAllCustomers() {
-// //         return null;
-// //     }
-
-// //     public ResponseEntity<Customers> getCustomerById(int customerId) {
-// //         return null;
-// //     }
-
-// //     public ResponseEntity<Integer> addCustomer(Customers customers) {
-// //         return null;
-// //     }
-
-// //     public ResponseEntity<Void> updateCustomer(int customerId, Customers customers) {
-// //         return null;
-// //     }
-// //     public ResponseEntity<Void> deleteCustomer(int customerId) {
-// //         return null;
-// //     }
-
-// //     public ResponseEntity<List<Transactions>> getAllTransactionsByCustomerId(int cutomerId) {
-// //         return null;
-// //     }
-// // }
-
-// package com.wecp.progressive.controller;
-
-
-// import com.wecp.progressive.entity.Customers;
-// import com.wecp.progressive.entity.Transactions;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.*;
-
-// import java.util.List;
-
-// @RestController
-// public class CustomerController {
-
-//     public ResponseEntity<List<Customers>> getAllCustomers() {
-//         return null;
-//     }
-
-//     public ResponseEntity<Customers> getCustomerById(int customerId) {
-//         return null;
-//     }
-
-//     public ResponseEntity<Integer> addCustomer(Customers customers) {
-//         return null;
-//     }
-
-//     public ResponseEntity<Void> updateCustomer(int customerId, Customers customers) {
-//         return null;
-//     }
-//     public ResponseEntity<Void> deleteCustomer(int customerId) {
-//         return null;
-//     }
-
-//     public ResponseEntity<List<Transactions>> getAllTransactionsByCustomerId(int cutomerId) {
-//         return null;
-//     }
-// }
-
 package com.wecp.progressive.controller;
 
 
 import com.wecp.progressive.entity.Customers;
+import com.wecp.progressive.service.CustomerLoginService;
 import com.wecp.progressive.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -90,11 +18,14 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
-
+    private CustomerLoginService customerLoginService;
+    
     @Autowired
-    public CustomerController(@Qualifier("customerServiceImplJpa") CustomerService customerService) {
+    public CustomerController(@Qualifier("customerServiceImplJpa") CustomerService customerService, CustomerLoginService customerLoginService) {
         this.customerService = customerService;
+        this.customerLoginService = customerLoginService;
     }
+
 
     @GetMapping
     public ResponseEntity<List<Customers>> getAllCustomers() {
@@ -134,9 +65,10 @@ public class CustomerController {
     public ResponseEntity<Void> updateCustomer(@PathVariable int customerId, @RequestBody Customers customers) {
         try {
             customers.setCustomerId(customerId);
-            customerService.updateCustomer(customers);
+            
+            customerLoginService.updateUser(customers);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

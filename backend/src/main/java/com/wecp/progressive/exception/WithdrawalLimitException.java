@@ -1,7 +1,4 @@
-// package com.wecp.progressive.exception;
 
-// public class WithdrawalLimitException {
-// }
 package com.wecp.progressive.exception;
 
 public class WithdrawalLimitException extends RuntimeException {

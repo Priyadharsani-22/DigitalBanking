@@ -1,9 +1,4 @@
-// import { Customer } from "./Customer";
-// export class Account {
- 
-// }
 
-//Accountts.ts
 export class AccountTS {
     accountId?: string;
     customerId: string;
