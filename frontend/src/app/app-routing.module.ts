@@ -22,10 +22,7 @@ const routes: Routes = [
     pathMatch: "full",
     redirectTo: "/auth",
   },
-  // {
-  //   path:'testing',
-  //   component:TestingComponent
-  // }
+  
 ];
 
 @NgModule({

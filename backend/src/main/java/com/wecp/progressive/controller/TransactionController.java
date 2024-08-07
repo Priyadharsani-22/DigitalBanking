@@ -17,10 +17,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/transactions")
 public class TransactionController {
- 
+    
+    @Autowired
     private final TransactionService transactionService;
  
-    @Autowired
+    //@Autowired
     public TransactionController(@Qualifier("transactionServiceImplJpa") TransactionService transactionService) {
         this.transactionService = transactionService;
     }
